@@ -8,7 +8,7 @@ use crate::expression::Expression;
 name = "riemann_sum",
 description = "sums the first n terms of the Riemann zeta function",
 examples = r#"[
-        ("riemann_sum(0, 3)", "12"),
+        ("riemann_sum(0, 3)", "18"),
         ("factorial(1)", "1"),
         ("factorial(4)", "24"),
         ("factorial(10)", "3628800"),
@@ -17,15 +17,22 @@ categories = r#"[
         "calculus",
     ]"#
 )]
-fn riemann_sum(start_num: Integer, times: NonNegativeInteger) -> Expression {
+fn riemann_sum(start_num: Integer, t: NonNegativeInteger) -> Expression {
+
+    // print f
+    // println!("{}", f);
+
+
     let f = "x + 3";
     let var = "x";
-    //let times: NonNegativeInteger = t;
+    let times: NonNegativeInteger = t + 1; // required to get the right sum
 
     // create sum_array with length of times
-    let mut sum_array: Vec<Expression> = vec!["0".parse::<Expression>().unwrap(); times.to_usize().unwrap()];
+    // let mut sum_array: Vec<Expression> = vec!["0".parse::<Expression>().unwrap(); times.to_usize().unwrap()];
 
-    for i in 0..sum_array.len() {
+    let mut sum: Expression = "0".parse::<Expression>().unwrap();
+
+    for i in 0..times.to_usize().unwrap() {
         let start_number: Integer = start_num.clone();
         let num: Integer = start_number + Integer::from(i);
 
@@ -37,13 +44,7 @@ fn riemann_sum(start_num: Integer, times: NonNegativeInteger) -> Expression {
         let result = new_f.parse::<Expression>().unwrap();
 
         // add result to sum_array
-        sum_array[i] = result;
-    }
-
-    // sum the array
-    let mut sum: Expression = "0".parse::<Expression>().unwrap();
-    for i in sum_array {
-        sum += i;
+        sum += result;
     }
 
     sum
