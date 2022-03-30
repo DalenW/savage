@@ -5,6 +5,7 @@ mod combinatorics;
 mod linear_algebra;
 mod logic;
 mod number_theory;
+mod riemann_sum;
 
 use std::rc::Rc;
 
@@ -148,6 +149,7 @@ pub fn functions() -> Vec<Function> {
         number_theory::is_prime,
         number_theory::nth_prime,
         number_theory::prime_pi,
+        riemann_sum::riemann_sum,
     )
 }
 
